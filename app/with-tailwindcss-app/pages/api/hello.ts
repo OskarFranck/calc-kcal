@@ -2,12 +2,33 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
-  name: string
+  props: Response
 }
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  res.status(200).json({ name: 'John Doe' })
+  const data: any = await getStaticProps()
+  res.status(200).json(data)
+}
+
+export async function getStaticProps() {
+  const res = await fetch('http://localhost:3000')
+  const data = await res.json()
+
+  console.log(data)
+
+  if (!data) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+          // statusCode: 301
+        },
+      }
+    }
+  return {
+      props: { data }
+  };
 }
