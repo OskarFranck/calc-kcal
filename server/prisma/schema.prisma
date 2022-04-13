@@ -10,18 +10,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  firstName String?
-  lastName  String?
-  email     String   @unique
-  createdAt DateTime @default(now())
-  verified  Boolean  @default(false)
-  sex       Sex
-  data      Json?
+model product {
+  name         String         @id
+  number       Int
+  main_group   String
+  product_data product_data[]
 }
 
-enum Sex {
-  MALE
-  FEMALE
+model nutrients {
+  name         String         @id
+  unit         String
+  product_data product_data[]
+}
+
+model product_data {
+  product     product   @relation(fields: [product_name], references: [name])
+  nutrients   nutrients @relation(fields: [nutrients_name], references: [name])
+  value       Decimal
+  weight_gram Int
+
+  product_name   String
+  nutrients_name String
+  @@id([product_name, nutrients_name])
 }

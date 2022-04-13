@@ -1,0 +1,15 @@
+{
+  "name": "data",
+  "version": "1.0.0",
+  "description": "",
+  "main": "addData.js",
+  "type": "module",
+  "scripts": {
+    "start": "node addData.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "xml2json": "^0.12.0"
+  }
+}
