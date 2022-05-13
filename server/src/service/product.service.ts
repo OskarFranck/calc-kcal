@@ -7,15 +7,12 @@ export class ProductService {
     constructor(private prisma: PrismaService) { }
 
     // test to get nutrients with product (the badest way....)
-    async product(productWhereUniqueInput: Prisma.productWhereUniqueInput,): Promise<product | null> {
-        let test: any = productWhereUniqueInput.name;
+    async product(productWhereUniqueInput: Prisma.productWhereUniqueInput, product_dataWhereInput: Prisma.product_dataWhereInput): Promise<product | null> {
         return this.prisma.product.findUnique({
             where: productWhereUniqueInput,
             include: {
                 product_data: {
-                    where: {
-                        product_name: test
-                    },
+                    where: product_dataWhereInput,
                     include: {
                         nutrients: true
                     }
@@ -31,13 +28,30 @@ export class ProductService {
         orderBy?: Prisma.productOrderByWithRelationInput;
     }): Promise<product[]> {
         const { skip, take, cursor, where, orderBy } = params;
+        const prodName: any = params.where.name;
         return this.prisma.product.findMany({
             skip,
             take,
             cursor,
             where,
             orderBy,
+            include: {
+                product_data: {
+                    where: {
+                        product_name: prodName
+                    },
+                    include: {
+                        nutrients: true
+                    }
+                }
+            }
         });
+    }
+
+    async allProducts() {
+        return this.prisma.product.findMany({
+            where:{}
+        })
     }
 
     async createproduct(data: Prisma.productCreateInput): Promise<product> {
