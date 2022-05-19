@@ -49,7 +49,7 @@ async function addProductDataToDb() {
     let created;
 
     // loop over every object and populate the database with data from livsmedelsverket.
-    for (const data of livsMedelsData.LivsmedelDataset.LivsmedelsLista.Livsmedel) {  //.LivsmedelDataset.LivsmedelsLista.Livsmedel
+    for (const data of livsMedelsData.LivsmedelDataset.LivsmedelsLista.Livsmedel) {
         //data.Naringsvarden.Naringsvarde.forEach(c => console.log(c))
         for (const c of data.Naringsvarden.Naringsvarde) {
             created = await prisma.product_data.create({
