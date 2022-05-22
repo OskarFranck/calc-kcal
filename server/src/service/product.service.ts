@@ -6,7 +6,6 @@ import { product, Prisma } from "@prisma/client";
 export class ProductService {
     constructor(private prisma: PrismaService) { }
 
-    // test to get nutrients with product (the badest way....)
     async product(productWhereUniqueInput: Prisma.productWhereUniqueInput, product_dataWhereInput: Prisma.product_dataWhereInput): Promise<product | null> {
         return this.prisma.product.findUnique({
             where: productWhereUniqueInput,
