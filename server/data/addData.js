@@ -1,7 +1,6 @@
 import parser from 'xml2json';
 import fs from 'fs/promises'
 import pkg from '@prisma/client';
-import { async } from 'rxjs';
 const { PrismaClient } = pkg;
 const prisma = new PrismaClient();
 

@@ -2,13 +2,6 @@ import './App.css';
 import {useState, useEffect} from 'react';
 
 function App() {
-
-  /*
-  Skriv sök funktion så man kan söka på vara, (sätta upp i api eller app)
-  man måste kunna tabort vara.
-  ändra design av hur annonser visas
-  uppdatera annons
-  */
   
   // Set state from Fetch
   const [firebaseTrade, setFirebaseTrade] = useState([]);
@@ -53,8 +46,7 @@ function App() {
     if(res.status === 404) {
       alert("Something went wrong" + res.status)
     }
-    //alert("Annons publicerad")
-    //console.log(requestBody + " Status message: " + res.status)
+    console.log(requestBody + " Status message: " + res.status)
     res.json()
     .then(data => setCalculated(data))
     calculated.forEach(e => {
@@ -124,14 +116,5 @@ return (
   </div>
   );
 }
-
-/*
-          {firebaseTrade.filter(item => item.name.toLowerCase().includes(searchItem.toLowerCase() || item.main_group.toLowerCase().includes(searchItem.toLowerCase()))).filter(group => group.main_group.toLowerCase().includes(searchItem.toLowerCase())).map(filterAdds => (
-            <div className="Items" key={filterAdds.number}>
-              Name: {filterAdds.name} <br/>
-              Main group: {filterAdds.main_group} <br/>
-              <button className="" onClick={() => deleteAdd(filterAdds.number)}>Ta bort annons</button>
-            </div>))}
-*/
 
 export default App;

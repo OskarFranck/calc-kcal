@@ -22,6 +22,11 @@ export class AppController {
     private readonly NutrientsService: NutrientsService,
   ) {}
 
+  @Get('product/:name')
+  async getProductByName(@Param('name') name: string): Promise<Product_Model> {
+    return this.ProductService.product({ name: String(name)}, {product_name: String(name) });
+  }
+  
   @Post('weight-calculate')
   @HttpCode(200)
   async getWeightCalculate(@Body() calcDto: calcDto): Promise<any> {
@@ -92,6 +97,7 @@ export class AppController {
 
 
 
+  // not working.
   @Get('calculate')
   async getCalculate(@Body() calcDto: calcDto): Promise<any> {
 
@@ -181,32 +187,15 @@ export class AppController {
     //console.log(usedIngr);
 
 
-    const test = usedIngr.map((e: any) => e.filter((c: any) => c.value > 0))
-    console.log(test)
+    const productsWhereNutrientValueExist = usedIngr.map((e: any) => e.filter((c: any) => c.value > 0))
+    console.log(productsWhereNutrientValueExist)
 
     const nutrientsSplit = mealPlans(mealPlan);
 
-    return calculateWeights(test, kcalGoal, nutrientsSplit);
+    return calculateWeights(productsWhereNutrientValueExist, kcalGoal, nutrientsSplit);
 
   };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  @Get('product/:name')
-  async getPostById(@Param('name') name: string): Promise<Product_Model> {
-    return this.ProductService.product({ name: String(name)}, {product_name: String(name) });
-  }
 
   @Get('products/:searchString')
   async getFilteredPosts(
